@@ -110,7 +110,8 @@ export default function AuthSignIn() {
             Sign In
           </Button>
           <GoogleLogin
-            clientId="641315087393-fnj3dpsm61gtppp77k9sigfffs85labn.apps.googleusercontent.com"
+          //Change here!!!
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Log in with Google"
             onSuccess={handleSuccessfulLogin}
             onFailure={handleErrorLogin}

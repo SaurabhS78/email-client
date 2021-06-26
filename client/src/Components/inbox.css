@@ -1,0 +1,54 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.overlay{
+    position: absolute;
+    top:0;
+}
+
+.container{
+    flex-direction: column;
+    padding: 1px;    
+}
+
+.btn-email{
+    width: 70%;
+    height: 60px;
+    padding: 8px 0px 16px 8px;
+}
+
+.btn-from{
+    float: left;
+    text-decoration-style: solid;
+    margin-right: 10px;
+    border-right: 1px;
+}
+
+.btn-subject{
+    float: left;
+    margin-right: 10px;
+    text-overflow: ellipsis;
+}
+
+.btn-body{
+    position: relative;
+    top: 5px;
+    float: center;
+    width: 65%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    margin-left: 225px ;
+    white-space: nowrap;
+}
+
+.btn-dtSent{
+    float: right;
+    margin-right: 10px;
+    text-decoration-style: solid;
+}
+
+.table-body{
+    align-items: center;
+}

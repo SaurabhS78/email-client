@@ -9,6 +9,8 @@ const User = require("../models/user");
 
 router.post("/users/register", async (req, res) => {
   try {
+    if (req.body.isOauth) throw new Error();
+
     const user = new User(req.body);
     const token = await user.getAuthToken();
     res.status(201).send({ name: user.name, email: user.email, token });
@@ -40,7 +42,7 @@ router.post("/users/oauth", async (req, res) => {
 
     const user = await User.findOneAndUpdate(
       { email },
-      { name, email },
+      { name, email, isOauth: true },
       { upsert: true }
     );
 

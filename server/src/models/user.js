@@ -20,10 +20,13 @@ const userSchema = mongoose.Schema({
       if (!validator.isEmail(value)) throw new Error("Email is invalid");
     },
   },
+  isOauth: {
+    type: Boolean,
+    default: false,
+  },
   password: {
     type: String,
-    required: false,
-    default: null,
+    required: !this.isOauth,
   },
   tokens: [
     {
@@ -59,7 +62,7 @@ userSchema.statics.findByCreds = async (email, password) => {
 
 // Hash passwords
 userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
+  if (this.isModified("password") && !this.isOauth) {
     this.password = await bcrypt.hash(this.password, 8);
   }
 

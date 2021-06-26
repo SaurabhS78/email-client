@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -46,6 +46,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register() {
   const classes = useStyles();
+  const [email , setEmail] = useState("");
+  const [password , setpassword] = useState("");
+  const [name , setname] = useState("");
+  const [all , setall] = useState([]);
+
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -69,6 +75,7 @@ export default function Register() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value = {name}
               />
             </Grid>
             <Grid item xs={12}>
@@ -80,6 +87,7 @@ export default function Register() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value = {email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -92,6 +100,7 @@ export default function Register() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value = {password}
               />
             </Grid>
           </Grid>

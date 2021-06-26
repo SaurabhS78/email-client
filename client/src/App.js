@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 //components
 import SideBar from './Components/SideBar';
 //containers
-import Inbox from './Containers/Inbox';
 import Compose from './Containers/Compose';
+import Home from './Containers/Home';
+import SentContainer from './Containers/SentContainer';
 //css
 import './App.css';
 
@@ -15,8 +16,9 @@ function App() {
       <Router>
         <SideBar />
         <Switch>
-          <Route path='/inbox' component={Inbox}/>
+          <Route path='/scheduled' component={Home}/>
           <Route path='/compose' component={Compose}/>
+          <Route path='/sent' component={SentContainer}/>
         </Switch>
       </Router>
     </>

@@ -22,7 +22,7 @@ const SideBar = () => {
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={ShowSideBar} />
           </Link>
-          <div className="title-main"><h1>MyEmail</h1></div>
+          <div className="title-main"><h1>Xmail</h1></div>
         </div>
         <nav className={SideBar ? "nav-menu" : "nav-menu active"}>
           <ul className="nav-menu-items" onClick={ShowSideBar}>

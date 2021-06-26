@@ -1,7 +1,7 @@
 import React from 'react';
-import * as FaIcons from 'react-icons/fa';
+// import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
+// import * as IoIcons from 'react-icons/io';
 
 export const SideBarData = [
     {
@@ -11,9 +11,15 @@ export const SideBarData = [
         cname: 'nav-text'
     },
     {
-        title: 'Inbox',
-        path: '/inbox',
+        title: 'Scheduled',
+        path: '/scheduled',
         icon: <AiIcons.AiOutlineInbox />,
+        cname: 'nav-text'
+    },
+    {
+        title: 'Sent',
+        path: '/sent',
+        icon: <AiIcons.AiOutlineSend />,
         cname: 'nav-text'
     }
 ]

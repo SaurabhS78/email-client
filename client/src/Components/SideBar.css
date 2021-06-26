@@ -10,6 +10,8 @@ h1{
 }
 
 .sidebar {
+    position: absolute fixed;
+    width: 100%;
     background-color: #101010;
     height: 80px;
     display: flex;

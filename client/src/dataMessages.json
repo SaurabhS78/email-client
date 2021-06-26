@@ -1,0 +1,88 @@
+{
+  "Emails": [
+    {
+      "id": 1,
+      "from": "Gary Lewis",
+      "fromAddress": "test@foofoo.com",
+      "subject": "I saw this posting on the board",
+      "dtSent": "Today, 9:18AM",
+      "read": false,
+      "body": "Hey Mark,I saw your post on the message board and I was wondering if you still had that item available. Can you call me if you still do?Thanks,Gary Lewis"
+    },
+    {
+      "id": 2,
+      "from": "Bob Sutton",
+      "fromAddress": "test@testdomain.com",
+      "subject": "In Late Today",
+      "dtSent": "Today, 8:54AM",
+      "read": false,
+      "body": "Hi buddy",
+      "attachment": false
+    },
+    {
+      "id": 3,
+      "from": "Will Adivo",
+      "fromAddress": "test@testbar.com",
+      "subject": "New developer",
+      "dtSent": "Yesterday, 4:48PM",
+      "read": true,
+      "body": "Here is the last resume for the developer position we posted on SO. Please review and let me know your thoughts!",
+      "attachment": true
+    },
+    {
+      "id": 4,
+      "from": "Al Kowalski",
+      "fromAddress": "test@domain.com",
+      "subject": "RE: New developer",
+      "dtSent": "Yesterday, 4:40PM",
+      "read": false,
+      "body": "I looked at the resume, but the guy looks like a moron.",
+      "priority": 1
+    },
+    {
+      "id": 5,
+      "from": "Beth Maloney",
+      "fromAddress": "test@mail.com",
+      "subject": "July Reports",
+      "dtSent": "3 Days Ago",
+      "read": true,
+      "body": "PYC Staff- Our weekly meeting is canceled due to the holiday. Please review and submit your PID report before next week's meeting.Thanks,Beth An essay is, generally, a piece of writing that gives the author's own argument, but the definition is vague, overlapping with those of a letter, a paper, an article, a pamphlet, and a short story. Essays have traditionally been sub-classified as formal and informal. Formal essays are characterized by serious purpose, dignity, logical organization, length,whereas the informal essay is characterized by the personal element (self-revelation, individual tastes and experiences, confidential manner), humor, graceful style, rambling structure, unconventionality or novelty of theme,etc. Essays are commonly used as literary criticism, political manifestos, learned arguments, observations of daily life, recollections, and reflections of the author. Almost all modern essays are written in prose, but works in verse have been dubbed essays (e.g., Alexander Pope's An Essay on Criticism and An Essay on Man). While brevity usually defines an essay, voluminous works like John Locke's An Essay Concerning Human Understanding and Thomas Malthus's An Essay on the Principle of Population are counterexamples"
+    },
+    {
+      "id": 6,
+      "from": "Jason Furgano",
+      "fromAddress": "test@domain.com",
+      "subject": "New developer",
+      "dtSent": "3 Days Ago",
+      "read": true,
+      "body": "All,I'd like to introduce Joe Canfigliata our new S/W developer. If you see him in the office introduce yourself and make him feel welcome."
+    },
+    {
+      "id": 7,
+      "from": "Bob Sutton",
+      "fromAddress": "test@test.com",
+      "subject": "Tasking request",
+      "dtSent": "3 Days Ago",
+      "read": true,
+      "body": "Ovi lipsu doir. The message body goes here..."
+    },
+    {
+      "id": 8,
+      "from": "Will Adivo",
+      "fromAddress": "test@test.com",
+      "subject": "Proposal for Avid Consulting",
+      "dtSent": "3 Days Ago",
+      "read": true,
+      "body": "Mark, I reviewed your proposal with Beth and we have a few questions. Let me know when you time to meet."
+    },
+    {
+      "id": 9,
+      "from": "Philip Corrigan",
+      "fromAddress": "test@testdomain.com",
+      "subject": "Follow-up Appt.",
+      "dtSent": "4 Days Ago",
+      "read": true,
+      "body": "Hi,Can you please confirm the expense report I submitted for my last trip to SD?Thanks,Tom Grey"
+    }
+  ]
+}

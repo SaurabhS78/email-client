@@ -20,9 +20,9 @@ function App() {
       <Router>
         <SideBar />
         <Switch>
-          <PrivateRoute path='/scheduled' component={Home}/>
-          <PrivateRoute path='/compose' component={Compose}/>
-          <PrivateRoute path='/sent' component={SentContainer}/>
+          <Route path='/scheduled' component={Home}/>
+          <Route path='/compose' component={Compose}/>
+          <Route path='/sent' component={SentContainer}/>
           <Route path='/signin' component={AuthSignIn}/>
           <Route path='/register' component={Register}/>
           <Redirect from="*" to="/signin" />

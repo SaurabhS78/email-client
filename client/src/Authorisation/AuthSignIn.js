@@ -1,25 +1,26 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import GoogleLogin from "react-google-login";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         XMail
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -27,16 +28,16 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -46,6 +47,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AuthSignIn() {
   const classes = useStyles();
+
+  const handleSuccessfulLogin = async googleData=> {
+    const res = await fetch("/api/v1/auth/google", {
+      method: "POST",
+      body: JSON.stringify({
+        token: googleData
+      }),
+      headers: {
+        "Content-Type" : "application/json"
+      }
+    })
+
+    const data = await res.json();
+
+  }
+
+  const handleErrorLogin = () => {
+    alert("Please Be Serious!")
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -89,6 +109,14 @@ export default function AuthSignIn() {
           >
             Sign In
           </Button>
+          <GoogleLogin
+            clientId="641315087393-fnj3dpsm61gtppp77k9sigfffs85labn.apps.googleusercontent.com"
+            buttonText="Log in with Google"
+            onSuccess={handleSuccessfulLogin}
+            onFailure={handleErrorLogin}
+            cookiePolicy={"single_host_origin"}
+            width={'100px'}
+          />
           <Grid container>
             <Grid item>
               <Link href="/register" variant="body2">

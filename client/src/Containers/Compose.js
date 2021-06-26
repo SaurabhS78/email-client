@@ -1,10 +1,17 @@
 import React from 'react'
+import './App.css';
+import TextEditor from './components/TextEditor';
 
 function Compose() {
     return (
-        <div>
-            Compose
-        </div>
+      
+ <div className="compose">
+     <div className ="editor">
+       <TextEditor/>
+     </div>
+
+
+    </div>
     )
 }
 

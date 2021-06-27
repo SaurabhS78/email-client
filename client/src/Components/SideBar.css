@@ -83,10 +83,6 @@ h1{
     /* justify-content: start; */
     align-items: center;
   }
-  
-  span {
-    margin-left: 16px;
-  }
 
   .drawer-name{
     color: #fff;

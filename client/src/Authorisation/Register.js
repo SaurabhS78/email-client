@@ -77,7 +77,7 @@ export default function Register() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Xmail Register 
         </Typography>
         <form className={classes.form} onSubmit={submitForm} noValidate>
           <Grid container spacing={2}>

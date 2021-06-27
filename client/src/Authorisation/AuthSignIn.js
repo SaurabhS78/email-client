@@ -83,7 +83,7 @@ export default function AuthSignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Xmail Sign in
         </Typography>
         <form className={classes.form} onSubmit={submitForm} noValidate>
           <TextField

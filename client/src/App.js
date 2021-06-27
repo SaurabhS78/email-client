@@ -1,12 +1,12 @@
 //react
-import React from "react";
+import React , {useEffect} from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-import { PrivateRoute } from "./Authorisation/PrivateRoutes";
+import  PrivateRoute  from "./Authorisation/PrivateRoutes";
 
 //components
 import SideBar from "./Components/SideBar";
@@ -28,14 +28,15 @@ function App() {
   return (
     <>
       <Router>
-        <SideBar />
+      {/* <SideBar /> */}
         <Switch>
-          <Route path="/scheduled" component={Home} />
-          <Route path="/compose" component={Compose} />
-          <Route path="/sent" component={SentContainer} />
           <Route path="/signin" component={AuthSignIn} />
           <Route path="/register" component={Register} />
+          <Route path="/compose" component={Compose} />
+          <Route path="/sent" component={SentContainer} />
+          <PrivateRoute exact path="/home" component={Home} />
           <Redirect from="*" to="/signin" />
+
         </Switch>
       </Router>
     </>

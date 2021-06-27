@@ -1,18 +1,41 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React, { useEffect, useState} from 'react';
+import { Route, Redirect } from 'react-router-dom'
+import { useSelector } from "react-redux";
+import jwtDecode from 'jwt-decode';
 
-function PrivateRoute({ component: Component, roles, ...rest }) {
-    return (
-        <Route {...rest} render={props => {
-            if (!localStorage.getItem('user')) {
-                // not logged in so redirect to login page with the return url
-                return <Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const auth = useSelector(state => state.auth)
+  const [isAuthenticated, setIsAuthenticated] = useState(null)  
+  useEffect(() => {
+    let token = localStorage.getItem('user-auth');
+        if(token){
+            let tokenExpiration = jwtDecode(token).exp;
+            let dateNow = new Date();
+
+            if(tokenExpiration < dateNow.getTime()/1000){
+                setIsAuthenticated(false)
+            }else{
+                setIsAuthenticated(true)
             }
+        } else {
+           setIsAuthenticated(false)
+        }
+  }, [auth])
 
-            // logged in so return component
-            return <Component {...props} />
-        }} />
-    );
-}
+  if(isAuthenticated === null){
+    return <></>
+  }
 
-export { PrivateRoute };
+  return (
+    <Route {...rest} render={props =>
+      !isAuthenticated ? (
+        <Redirect to='/login'/>
+      ) : (
+        <Component {...props} />
+      )
+    }
+    />
+  );
+};
+
+export default PrivateRoute;

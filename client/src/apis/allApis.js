@@ -13,3 +13,7 @@ export const SignInGoogle = (body) =>
 export const RegisterNew = (body) => {
   axios.post(`${BASE_URL}/users/register`, body);
 };
+
+export const ComposeEmail = (body) => {
+  axios.post(`${BASE_URL}/users/compose`, body);
+}

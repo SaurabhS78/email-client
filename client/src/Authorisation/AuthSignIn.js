@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import GoogleLogin from "react-google-login";
+import { SignInGoogle } from "../apis/allApis";
 
 function Copyright() {
   return (
@@ -49,16 +50,7 @@ export default function AuthSignIn() {
   const classes = useStyles();
 
   const handleSuccessfulLogin = async (googleData) => {
-    const res = await fetch("http://127.0.0.1:3000/users/oauth", {
-      method: "POST",
-      body: JSON.stringify({
-        token: googleData.tokenId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
+    const { data } = await SignInGoogle({ token: googleData.tokenId });
     localStorage.setItem("user-auth", data?.token);
   };
 

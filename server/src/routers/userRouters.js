@@ -43,12 +43,13 @@ router.post("/users/oauth", async (req, res) => {
     const user = await User.findOneAndUpdate(
       { email },
       { name, email, isOauth: true },
-      { upsert: true }
+      { upsert: true, new: true }
     );
 
     const jwttoken = await user.getAuthToken();
-    res.send({ name: user.name, email: user.email, jwttoken });
+    res.send({ name: user.name, email: user.email, token: jwttoken });
   } catch (e) {
+    console.log(e);
     res.status(500).send("Something went wrong!");
   }
 });

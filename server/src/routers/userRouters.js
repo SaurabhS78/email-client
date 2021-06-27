@@ -6,6 +6,7 @@ const { OAUTH_CLIENT_ID } = require("../config");
 const client = new OAuth2Client(OAUTH_CLIENT_ID);
 
 const User = require("../models/user");
+const auth = require("../middlewares/auth");
 
 router.post("/users/register", async (req, res) => {
   try {
@@ -54,6 +55,24 @@ router.post("/users/oauth", async (req, res) => {
   }
 });
 
-//TODO: Logout route
+router.post("/users/logout", auth, async (req, res) => {
+  try {
+    const user = req.user;
+    user.tokens = [];
+    user.save();
+    res.send("Successfully logged out!");
+  } catch (e) {
+    res.status(500).send("Something went wrong!");
+  }
+});
+
+router.get("/users/me", auth, async (req, res) => {
+  try {
+    const user = req.user;
+    res.send({ name: user.name, email: user.email });
+  } catch (e) {
+    res.status(404).send("User not found!");
+  }
+});
 
 module.exports = router;

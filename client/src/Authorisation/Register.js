@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -50,9 +51,16 @@ export default function Register() {
   const [password , setpassword] = useState("");
   const [name , setname] = useState("");
   const [all , setall] = useState([]);
-
-
-
+  const url = "http://127.0.0.1:3000/users/register"
+  const submitForm = (e) => {
+    e.preventDefault();
+    const new_entry = { name: name , email : email , password : password };
+    console.log(new_entry);
+    setall([...all , new_entry]);
+    axios.post(url , new_entry ).then(res => {
+      console.log(res);
+    })
+  } 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -63,7 +71,7 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={submitForm} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -76,6 +84,8 @@ export default function Register() {
                 label="First Name"
                 autoFocus
                 value = {name}
+                onChange={(e) => setname(e.target.value)}
+                
               />
             </Grid>
             <Grid item xs={12}>
@@ -88,6 +98,8 @@ export default function Register() {
                 name="email"
                 autoComplete="email"
                 value = {email}
+                onChange={(e) => setEmail(e.target.value)}
+
               />
             </Grid>
             <Grid item xs={12}>
@@ -101,6 +113,7 @@ export default function Register() {
                 id="password"
                 autoComplete="current-password"
                 value = {password}
+                onChange={(e) => setpassword(e.target.value)}
               />
             </Grid>
           </Grid>

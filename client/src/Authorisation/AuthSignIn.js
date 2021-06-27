@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -50,23 +51,24 @@ export default function AuthSignIn() {
   const classes = useStyles();
 
   const handleSuccessfulLogin = async googleData=> {
-    const res = await fetch("/api/v1/auth/google", {
+    console.log(googleData.tokenID);
+    const res = await fetch("http://127.0.0.1:3000/users/oauth", {
       method: "POST",
-      body: JSON.stringify({
-        token: googleData
-      }),
+      body: JSON.stringify({  
+        token : googleData.tokenId
+      }), 
       headers: {
         "Content-Type" : "application/json"
       }
-    })
+    })  
 
     const data = await res.json();
 
   }
 
-  const handleErrorLogin = () => {
-    alert("Please Be Serious!")
-  }
+  // const handleErrorLogin = (e) => {
+  //   console.log(e);
+  // }
   const url = "http://127.0.0.1:3000/users/login"
   const [email , setEmail] = useState("");
   const [password , setpassword] = useState("");
@@ -79,9 +81,9 @@ export default function AuthSignIn() {
     setall([...all , new_entry]);
     axios.post(url , new_entry ).then(res => {
       console.log(res);
+      localStorage.setItem("user-auth" , res.data.token);
     })
   } 
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -134,9 +136,10 @@ export default function AuthSignIn() {
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Log in with Google"
             onSuccess={handleSuccessfulLogin}
-            onFailure={handleErrorLogin}
+            onFailure={handleSuccessfulLogin}
             cookiePolicy={"single_host_origin"}
           />
+          {/* {console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID)} */}
           <Grid container>
             <Grid item>
               <Link href="/register" variant="body2">

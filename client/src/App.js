@@ -1,7 +1,7 @@
 //react
-import React from 'react';
+import React , {useEffect} from 'react';
 import { BrowserRouter as Router, Switch, Route , Redirect} from 'react-router-dom'
-import {PrivateRoute} from './Authorisation/PrivateRoutes'
+// import {PrivateRoute} from './Authorisation/PrivateRoutes'
 //components
 import SideBar from './Components/SideBar';
 //containers
@@ -11,10 +11,13 @@ import SentContainer from './Containers/SentContainer';
 //css
 import './App.css';
 import AuthSignIn from './Authorisation/AuthSignIn';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Register from './Authorisation/Register';
 
 function App() {
+  useEffect(() => {
+    const token = localStorage.getItem("user-auth");
+    console.log(token);
+  }, [])
   return (
     <>
       <Router>

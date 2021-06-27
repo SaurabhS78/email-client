@@ -51,7 +51,15 @@ export default function Register() {
   const [password , setpassword] = useState("");
   const [name , setname] = useState("");
   const [all , setall] = useState([]);
-  const url = "http://127.0.0.1:3000/users/register"
+
+  const url = ''
+  const RequestOtpions = {
+    url : "http://127.0.0.1:3000/users/register",
+    headers : {
+      Authorisation : 'Bearer' 
+    }
+  }
+
   const submitForm = (e) => {
     e.preventDefault();
     const new_entry = { name: name , email : email , password : password };

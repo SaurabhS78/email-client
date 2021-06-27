@@ -50,29 +50,25 @@ const useStyles = makeStyles((theme) => ({
 export default function AuthSignIn() {
   const classes = useStyles();
 
-  const handleSuccessfulLogin = async googleData=> {
-    console.log(googleData.tokenID);
-    const res = await fetch("http://127.0.0.1:3000/users/oauth", {
-      method: "POST",
-      body: JSON.stringify({  
-        token : googleData.tokenId
-      }), 
-      headers: {
-        "Content-Type" : "application/json"
-      }
-    })  
-
-    const data = await res.json();
-
-  }
-
-  // const handleErrorLogin = (e) => {
-  //   console.log(e);
-  // }
   const url = "http://127.0.0.1:3000/users/login"
   const [email , setEmail] = useState("");
   const [password , setpassword] = useState("");
   const [all , setall] = useState([]);
+
+  const handleSuccessfulLogin = async (googleData) => {
+    const res = await fetch("http://127.0.0.1:3000/users/oauth", {
+      method: "POST",
+      body: JSON.stringify({
+        token: googleData.tokenId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    localStorage.setItem("user-auth", data?.token);
+  };
+
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -132,7 +128,7 @@ export default function AuthSignIn() {
             Sign In
           </Button>
           <GoogleLogin
-          //Change here!!!
+            //Change here!!!
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Log in with Google"
             onSuccess={handleSuccessfulLogin}

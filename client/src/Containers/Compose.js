@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react";
+import "../App.css";
+import TextEditor from "../Components/TextEditor";
 
 function Compose() {
-    return (
-        <div>
-            Compose
-        </div>
-    )
+  return (
+    <div className="compose">
+      <div className="editor">
+        <TextEditor />
+      </div>
+    </div>
+  );
 }
 
 export default Compose;

@@ -5,7 +5,12 @@ const uri = `mongodb+srv://xmailclient:${DB_PASSWORD}@cluster0.znxwm.mongodb.net
 
 mongoose.connect(
   uri,
-  { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  },
   (err) => {
     if (err) throw new Error(err);
   }

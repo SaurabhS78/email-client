@@ -26,7 +26,10 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: !this.isOauth,
+    required: function () {
+      return !this.isOauth;
+    },
+    default: null,
   },
   tokens: [
     {

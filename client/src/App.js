@@ -16,7 +16,6 @@ import SentContainer from "./Containers/SentContainer";
 //css
 import "./App.css";
 import AuthSignIn from "./Authorisation/AuthSignIn";
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Register from "./Authorisation/Register";
 
 function App() {

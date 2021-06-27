@@ -48,24 +48,19 @@ const useStyles = makeStyles((theme) => ({
 export default function AuthSignIn() {
   const classes = useStyles();
 
-  const handleSuccessfulLogin = async googleData=> {
-    const res = await fetch("/api/v1/auth/google", {
+  const handleSuccessfulLogin = async (googleData) => {
+    const res = await fetch("http://127.0.0.1:3000/users/oauth", {
       method: "POST",
       body: JSON.stringify({
-        token: googleData
+        token: googleData.tokenId,
       }),
       headers: {
-        "Content-Type" : "application/json"
-      }
-    })
-
+        "Content-Type": "application/json",
+      },
+    });
     const data = await res.json();
-
-  }
-
-  const handleErrorLogin = () => {
-    alert("Please Be Serious!")
-  }
+    localStorage.setItem("user-auth", data?.token);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -110,13 +105,13 @@ export default function AuthSignIn() {
             Sign In
           </Button>
           <GoogleLogin
-          //Change here!!!
+            //Change here!!!
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Log in with Google"
             onSuccess={handleSuccessfulLogin}
-            onFailure={handleErrorLogin}
+            onFailure={handleSuccessfulLogin}
             cookiePolicy={"single_host_origin"}
-            width={'100px'}
+            width={"100px"}
           />
           <Grid container>
             <Grid item>

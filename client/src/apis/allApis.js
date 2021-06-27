@@ -10,10 +10,12 @@ export const GetUserInfo = () =>
 export const SignInGoogle = (body) =>
   axios.post(`${BASE_URL}/users/oauth`, body);
 
-export const RegisterNew = (body) => {
+export const RegisterNew = (body) =>
   axios.post(`${BASE_URL}/users/register`, body);
-};
 
-export const ComposeEmail = (body) => {
-  axios.post(`${BASE_URL}/users/compose`, body);
-}
+export const SignIn = (body) => axios.post(`${BASE_URL}/users/login`, body);
+
+export const ComposeEmail = (body) =>
+  axios.post(`${BASE_URL}/email/schedule`, body, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user-auth")}` },
+  });

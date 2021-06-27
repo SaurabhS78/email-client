@@ -1,8 +1,9 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
+import { ComposeEmail } from "../apis/allApis";
 
 export default class TextEditor extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export default class TextEditor extends Component {
       choice: "1",
       weeklyday: "1",
       body: "",
+      message: "",
     };
   }
 
@@ -28,21 +30,42 @@ export default class TextEditor extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleChoiceChange = (e) => { 
-    this.setState({choice : e.target.value});
-  }
+  handleChoiceChange = (e) => {
+    this.setState({ choice: e.target.value });
+  };
+
+  handleCompose = async (body) => {
+    const { data } = await ComposeEmail(body);
+    if (data.success)
+      return this.setState({ message: "Successfully sent/scheduled email!" });
+  };
+
   submitHandler = (e) => {
     e.preventDefault();
-    this.setState({
-      body : draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
-    }, () => console.log(this.state))
-
+    this.setState(
+      {
+        body: draftToHtml(
+          convertToRaw(this.state.editorState.getCurrentContent())
+        ),
+      },
+      () => {
+        const { email, subject, date, time, choice, body } = this.state;
+        const payload = {
+          to: email,
+          subject,
+          date,
+          time,
+          option: choice,
+          html: body,
+        };
+        this.handleCompose(payload);
+      }
+    );
   };
-  
 
   render() {
-    const { editorState , email , subject , date , time , choice , body } = this.state;
-    // console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    const { editorState, email, subject, date, time, choice, message } =
+      this.state;
     return (
       <div>
         <form action="/compose" onSubmit={this.submitHandler} method="post">
@@ -73,45 +96,60 @@ export default class TextEditor extends Component {
             onEditorStateChange={this.onEditorStateChange}
           />
           <fieldset onChange={this.handleChoiceChange}>
-          <div className="choice">
-            <input
-              type="radio"
-              id="immediate"
-              name="choice"
-              value="1"
-              checked = {choice == 1}
-/>
-            <label for="immediate">Send Immediately:</label>
-          </div>
+            <div className="choice">
+              <input
+                type="radio"
+                id="immediate"
+                name="choice"
+                value="1"
+                checked={choice == 1}
+              />
+              <label for="immediate">Send Immediately:</label>
+            </div>
 
-          <div className="choice">
-            <input type="radio" id="sec" name="choice"  
-              value="2"
-              checked = {choice == 2}
-            />
-            <label for="sec">Recuuring Schedule (every 30sec)</label>
-          </div>
-          <div className="choice">
-            <input type="radio" id="week" name="choice" 
-              value="3"
-              checked = {choice == 3}
-            />
-            <label for="week">weekly Schedule</label>
-          </div>
+            <div className="choice">
+              <input
+                type="radio"
+                id="sec"
+                name="choice"
+                value="2"
+                checked={choice == 2}
+              />
+              <label for="sec">Recuuring Schedule (every 30sec)</label>
+            </div>
+            <div className="choice">
+              <input
+                type="radio"
+                id="week"
+                name="choice"
+                value="3"
+                checked={choice == 3}
+              />
+              <label for="week">weekly Schedule</label>
+            </div>
 
-          <div className="choice">
-            <input type="radio" id="month" name="choice" value = "4"
-              checked = {choice == 4}
-            />
-            <label for="month">monthly Schedule</label>
-          </div>
+            <div className="choice">
+              <input
+                type="radio"
+                id="month"
+                name="choice"
+                value="4"
+                checked={choice == 4}
+              />
+              <label for="month">monthly Schedule</label>
+            </div>
 
-          <div className="choice">
-            <input type="radio" id="year" name="choice" defaultValue="5" value = "5"
-            checked = {choice == 5}
-            />
-            <label for="year">yearly Schedule</label>
-          </div>
+            <div className="choice">
+              <input
+                type="radio"
+                id="year"
+                name="choice"
+                defaultValue="5"
+                value="5"
+                checked={choice == 5}
+              />
+              <label for="year">yearly Schedule</label>
+            </div>
           </fieldset>
 
           <div className="choice">
@@ -131,13 +169,14 @@ export default class TextEditor extends Component {
                 placeholder="time"
                 name="time"
                 defaultValue="13:30"
-                value = {time}
+                value={time}
                 onChange={this.changeHandler}
               />
             </label>
           </div>
 
           <input type="submit" defaultValue="Submit" />
+          <p>{message}</p>
         </form>
       </div>
     );

@@ -1,26 +1,27 @@
-import React , {useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import axios from 'axios';
+import React, { useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import { RegisterNew } from "../apis/allApis";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         XMail
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -28,16 +29,16 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -47,28 +48,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register() {
   const classes = useStyles();
-  const [email , setEmail] = useState("");
-  const [password , setpassword] = useState("");
-  const [name , setname] = useState("");
-  const [all , setall] = useState([]);
+  const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
+  const [name, setname] = useState("");
 
-  const url = ''
-  const RequestOtpions = {
-    url : "http://127.0.0.1:3000/users/register",
-    headers : {
-      Authorisation : 'Bearer' 
-    }
-  }
+  const history = useHistory();
+
+  const handleRegister = async () => {
+    const { data } = await RegisterNew({ name, email, password });
+    localStorage.setItem("user-auth", data?.token);
+    history.push("/compose");
+  };
 
   const submitForm = (e) => {
     e.preventDefault();
-    const new_entry = { name: name , email : email , password : password };
-    console.log(new_entry);
-    setall([...all , new_entry]);
-    axios.post(url , new_entry ).then(res => {
-      console.log(res);
-    })
-  } 
+    handleRegister();
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -77,7 +73,7 @@ export default function Register() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Xmail Register
         </Typography>
         <form className={classes.form} onSubmit={submitForm} noValidate>
           <Grid container spacing={2}>
@@ -89,11 +85,10 @@ export default function Register() {
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label="Name"
                 autoFocus
-                value = {name}
+                value={name}
                 onChange={(e) => setname(e.target.value)}
-                
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,9 +100,8 @@ export default function Register() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                value = {email}
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
-
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,7 +114,7 @@ export default function Register() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                value = {password}
+                value={password}
                 onChange={(e) => setpassword(e.target.value)}
               />
             </Grid>

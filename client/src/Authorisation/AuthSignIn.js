@@ -12,11 +12,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import GoogleLogin from "react-google-login";
 
-import { SignInGoogle } from "../apis/allApis";
+import { SignIn, SignInGoogle } from "../apis/allApis";
 
 import axios from "axios";
-import { Redirect } from "react-router-dom";
-
+import { Redirect, useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -53,28 +52,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AuthSignIn() {
   const classes = useStyles();
+  const history = useHistory();
 
-  const url = "http://127.0.0.1:3000/users/login"
-  const [email , setEmail] = useState("");
-  const [password , setpassword] = useState("");
-  const [all , setall] = useState([]);
+  const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
 
   const handleSuccessfulLogin = async (googleData) => {
     const { data } = await SignInGoogle({ token: googleData.tokenId });
     localStorage.setItem("user-auth", data?.token);
+    history.push("/compose");
   };
 
+  const handleSignIn = async () => {
+    const { data } = await SignIn({ email, password });
+    localStorage.setItem("user-auth", data?.token);
+    history.push("/compose");
+  };
 
   const submitForm = (e) => {
     e.preventDefault();
-    const new_entry = { email : email , password : password };
-    console.log(new_entry);
-    setall([...all , new_entry]);
-    axios.post(url , new_entry ).then(res => {
-      console.log(res);
-      localStorage.setItem("user-auth" , res.data.token);
-    })
-  } 
+    handleSignIn();
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -83,7 +82,7 @@ export default function AuthSignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Xmail Sign in
         </Typography>
         <form className={classes.form} onSubmit={submitForm} noValidate>
           <TextField
@@ -111,7 +110,6 @@ export default function AuthSignIn() {
             autoComplete="current-password"
             value={password}
             onChange={(e) => setpassword(e.target.value)}
-            
           />
           <Button
             type="submit"
@@ -123,14 +121,12 @@ export default function AuthSignIn() {
             Sign In
           </Button>
           <GoogleLogin
-            //Change here!!!
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Log in with Google"
             onSuccess={handleSuccessfulLogin}
             onFailure={handleSuccessfulLogin}
             cookiePolicy={"single_host_origin"}
           />
-          {/* {console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID)} */}
           <Grid container>
             <Grid item>
               <Link href="/register" variant="body2">
